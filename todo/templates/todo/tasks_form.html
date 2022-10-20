@@ -1,0 +1,22 @@
+{% extends 'todo/base.html' %} 
+{% load crispy_forms_tags %} 
+{% block main %}
+<div class="container">
+  <div class="row align-items-center">
+    <div class="d-flex flex-row justify-content-center ">
+      <div class="col-4 align-items-center border border-primary rounded p-4 mt-3">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group mb-4">
+              {{ form | crispy }}
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}

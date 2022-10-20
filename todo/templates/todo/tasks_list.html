@@ -10,7 +10,7 @@
                 <p class="alert alert-{{ message.tags }}">{{ message }}</p>
               {% endfor%}
             {% endif%}
-            {% for task in tasks%}
+            {% for task in tasks %}
                 <a href="#" class="list-group-item list-group-item-action p-3">
                     <h5 class="ml-4">{{ task.title }}</h2>
                 </a>
@@ -21,5 +21,4 @@
     </div>
   </div>
 
-  
 {% endblock main %}

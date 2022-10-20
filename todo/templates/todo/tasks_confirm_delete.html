@@ -1,0 +1,23 @@
+{% extends 'todo/base.html' %} 
+{% load crispy_forms_tags %} 
+{% block main %}
+<div class="container">
+  <div class="row align-items-center">
+    <div class="d-flex flex-row justify-content-center ">
+      <div class="col-4 align-items-center border border-primary rounded p-4 mt-3">
+        <form method="POST">
+            {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group mb-4">
+                <h3>Are you sure you want to delete <i>{{ object.title}}</i>?</h3>
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-outline-danger">Delete</button>
+          <a class="btn btn-secondary" href="{% url todo-home user.username % }">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}
