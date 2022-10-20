@@ -61,7 +61,8 @@ class TaskUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 
     def test_func(self):
         user = self.get_object()
-        if(self.request.user == user):
+        print(user.user)
+        if(self.request.user == user.user):
             return True
         return False
 
