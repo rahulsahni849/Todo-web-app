@@ -1,24 +1,65 @@
 {% extends 'todo/base.html' %}
+{% load static %}
 {% block main %}
-<div class="container">
+<div class="container ">
     <div class="row align-items-center">
-        <div class="d-flex flex-row justify-content-center">
-          <div class="col-8 align-items-center">
+          <div class="d-flex flex-row justify-content-center ">
+            <div class="col-8 align-items-center mt-3">
+              {% if tasks %}
+                <div class="d-flex justify-content-end">
+                  <a href="{% url 'todo-create'%}" class="btn btn-primary"> Create </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        <div class="d-flex flex-row justify-content-center ">
+          
+          <div class="col-8 align-items-center border border-primary rounded mt-2">
+            {% if not tasks%}
+              <div class="d-flex  m-2">
+                <p>No Todo's for now, want to create? <a href="{% url 'todo-create' %}" c><i>Add</i></a></p>
+              </div>
+            {% endif %}
+           
           <div class="list-group m-3">
-            {% if messages %}
-              {% for message in messages%}
-                <p class="alert alert-{{ message.tags }}">{{ message }}</p>
-              {% endfor%}
-            {% endif%}
-            {% for task in tasks %}
-                <a href="#" class="list-group-item list-group-item-action p-3">
-                    <h5 class="ml-4">{{ task.title }}</h2>
-                </a>
-            {% endfor %}
+              <table class="table">
+                <thead class="thead-light">
+                  <tr class="text-center">
+                    <th scope="col">Status</th>
+                    <th scope="col" >Title</th>
+                    <th scope="col" style="width: 100px ;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  {% if tasks %}
+                    {% for task in tasks %}
+                      <tr>
+                        {% if not task.completed %}
+                          <th scope="row"><img src="{% static 'todo/media/_not_complete.png' %}" style="width: 40px; height: 40px" /></th>
+                        {% else %}
+                        <th scope="row"><img src="{% static 'todo/media/_complete.png' %}" style="width: 40px; height: 40px" /></th>
+                        {% endif %}
+                        <td class="text-center"><h4>{{ task.title }}</h4></td>
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-around">
+                              <div class="m-2">
+                                <a href="{% url 'todo-update' task.id %}" class="btn btn-primary"> Update </a>
+                              </div>
+                              <div class="m-2">
+                                <a href="{% url 'todo-delete' task.id %}" class="btn btn-danger"> Delete </a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
         </div>
       </div>
       </div>
     </div>
   </div>
-
 {% endblock main %}
+
+

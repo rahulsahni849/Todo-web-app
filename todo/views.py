@@ -1,6 +1,6 @@
-import logging
+from asyncio import Task
 from django.shortcuts import render, get_object_or_404,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Tasks
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -15,9 +15,19 @@ from .models import Tasks
 def Home(request):
     if(request.user.is_authenticated):
         user = request.user.username
-        #print(user)
+        print(user)
         return redirect('todo-home',username=user)
     return redirect('login')
+
+@login_required
+def DeleteTask(request,id):
+    if(request.user.is_authenticated):
+        user = request.user.username
+        task = Tasks.objects.get(id=id)
+        task.delete()
+        return HttpResponseRedirect(reverse('todo-home',kwargs={'username':user}))
+    else:
+        return HttpResponse(403)
 
 class TaskListView(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = Tasks
@@ -50,7 +60,7 @@ class TaskCreateView(LoginRequiredMixin,CreateView):
 
 class TaskUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Tasks
-    fields = ["title"]
+    fields = ["title","completed"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -67,17 +77,17 @@ class TaskUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         return False
 
 
-class TaskDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
-    model = Tasks
-    def get_success_url(self):
-        return reverse('todo-home',kwargs = {"username":self.request.user.username})
+# class TaskDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+#     model = Tasks
+#     def get_success_url(self):
+#         return reverse('todo-home',kwargs = {"username":self.request.user.username})
 
-    def test_func(self):
-        user = self.get_object()
-        if(self.request.user.username == user.user.username):
-            print('yes i am')
-            return True
-        return False
+#     def test_func(self):
+#         user = self.get_object()
+#         if(self.request.user.username == user.user.username):
+#             print('yes i am')
+#             return True
+#         return False
 
 
 

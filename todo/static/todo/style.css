@@ -6,6 +6,7 @@
 
 body{
     background-color: rgb(252, 254, 255);
+    font-family: "Audiowide", sans-serif;
     left: 0;
     top: 0;
 }
@@ -18,6 +19,18 @@ body{
     font-size: 50px;
 }
 
+#profile-div{
+    display: flex;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+#profile-name{
+    background-color: rgba(26, 140, 240,0.4);
+
+    border-radius: 50%;
+    padding: 15px;
+}
 
 
 

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
 
     {% if title%}
         <title>Todo - {{title}}</title>
@@ -18,9 +19,7 @@
 <body>
     <header  class="row d-flex align-items-end" id="upper-part">
         <div class="d-flex justify-content-center">
-            {% if page_title%}
-                <h2 class="mb-3">{{page_title}}</h1>
-            {% endif%}
+            <h2 class="mb-3">Todo App</h1>
         </div>
     </header>
 
