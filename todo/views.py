@@ -29,6 +29,21 @@ def DeleteTask(request,id):
     else:
         return HttpResponse(403)
 
+@login_required
+def FilterTask(request,filter):
+    if(request.user.is_authenticated):
+        user = request.user
+        if(filter=="completed"):
+            tasks = Tasks.objects.filter(user=user,completed="True")
+            return render(request,'todo/tasks_list.html',{'username':user,'tasks':tasks,'filter':filter})
+        elif(filter=="pending"):
+            tasks = Tasks.objects.filter(user=user,completed="False")
+            return render(request,'todo/tasks_list.html',{'username':user,'tasks':tasks,'filter':filter})
+        else:
+            return HttpResponseRedirect(reverse('todo-home',kwargs={'username':user}))
+    else:
+        return HttpResponse(403)
+
 class TaskListView(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = Tasks
     context_object_name = "tasks"

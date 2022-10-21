@@ -27,8 +27,8 @@
                 <div class="navbar-nav">
                 
                 <a class="nav-item nav-link active" href="{% url 'todo-home' user.username %}">All Tasks</a>
-                <a class="nav-item nav-link" href="#">Completed</a>
-                <a class="nav-item nav-link" href="#">Pending</a>
+                <a class="nav-item nav-link" href="{% url 'todo-filter' 'completed' %}">Completed</a>
+                <a class="nav-item nav-link" href="{% url 'todo-filter' 'pending' %}">Pending</a>
                 </div>
                 
             </div>
